@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -1376,7 +1377,7 @@ public abstract class GenInputsAbstract extends CommandHandler {
    * @param file the file containing the strings
    * @return the lines in the file, or null if listFile is null
    */
-  public static Set<@ClassGetName String> getClassNamesFromFile(Path file) {
+  public static @Modifiable Set<@ClassGetName String> getClassNamesFromFile(Path file) {
     Set<@ClassGetName String> result = new LinkedHashSet<>();
     for (String line : getStringSetFromFile(file, "class names")) {
       if (!Signatures.isClassGetName(line)) {

@@ -108,6 +108,7 @@ allprojects {
     version = libs.checker.get().version
     if (project.hasProperty("cfNullness")) {
       checkers = [
+        "org.checkerframework.checker.modifiability.ModifiabilityChecker",
         "org.checkerframework.checker.nullness.NullnessChecker",
         // These are included to avoid this failure:
         //   The following options were not recognized by any processor: "[permitStaticOwning]"
@@ -118,6 +119,7 @@ allprojects {
       ]
     } else {
       checkers = [
+        "org.checkerframework.checker.modifiability.ModifiabilityChecker",
         // "org.checkerframework.checker.nullness.NullnessChecker",
         "org.checkerframework.checker.regex.RegexChecker",
         "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
