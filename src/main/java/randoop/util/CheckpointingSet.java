@@ -3,6 +3,7 @@ package randoop.util;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.Signed;
@@ -21,7 +22,7 @@ public class CheckpointingSet<E extends @Signed Object> implements Set<E> {
   // The value is always true in this mapping, never false.
   public final CheckpointingMultiMap<E, Boolean> map;
 
-  public CheckpointingSet() {
+  public @Modifiable CheckpointingSet() {
     this.map = new CheckpointingMultiMap<>();
   }
 

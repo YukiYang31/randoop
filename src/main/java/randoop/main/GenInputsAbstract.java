@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -1191,7 +1192,10 @@ public abstract class GenInputsAbstract extends CommandHandler {
 
     // This does not exclude explicitly-specified methods.  In other words, if the user specified a
     // method explicitly, this does not exclude it even if it is in an excluded class.
-    for (Iterator<String> itor = classnames.iterator(); itor.hasNext(); ) {
+    for (@SuppressWarnings("Shrinkable:assignment") // false positive.
+        @Shrinkable
+        Iterator<String> itor = classnames.iterator();
+        itor.hasNext(); ) {
       String classname = itor.next();
       if (shouldOmitClass(classname)) {
         itor.remove();

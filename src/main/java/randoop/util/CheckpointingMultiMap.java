@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.signedness.qual.Signed;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 
@@ -69,7 +70,7 @@ public class CheckpointingMultiMap<K extends @Signed Object, V extends @Signed O
     }
   }
 
-  public CheckpointingMultiMap() {
+  public @Modifiable CheckpointingMultiMap() {
     map = new LinkedHashMap<>();
     marks = new ArrayList<>();
     ops = new ArrayList<>();
