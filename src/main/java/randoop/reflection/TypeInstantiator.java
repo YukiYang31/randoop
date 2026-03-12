@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.util.CombinationIterator;
 import org.plumelib.util.StringsPlume;
@@ -382,6 +384,8 @@ public class TypeInstantiator {
     // instantiating type for each variable.
 
     // These are the candidates that this routine will return.
+    @Growable
+    @Replaceable
     List<Substitution> result = new ArrayList<>();
     if (!genericParameters.isEmpty()) {
       // if there are type parameters with generic bounds
@@ -477,7 +481,7 @@ public class TypeInstantiator {
    * @return the list of instantiating substitutions; may be empty. The list is fresh and clients
    *     may side-effect it.
    */
-  private List<Substitution> allSubstitutions(
+  private @Growable @Replaceable List<Substitution> allSubstitutions(
       List<TypeVariable> parameters, Substitution initialSubstitution, BoundsCheck boundsCheck) {
     List<Substitution> substitutionList = new ArrayList<>();
     List<List<ReferenceType>> candidateTypes = candidateTypes(parameters);

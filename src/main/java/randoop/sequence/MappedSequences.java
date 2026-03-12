@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.plumelib.util.SIList;
 import randoop.types.Type;
 
@@ -16,7 +17,7 @@ import randoop.types.Type;
  */
 public class MappedSequences<K> {
 
-  private Map<K, SequenceCollection> map;
+  private @Growable Map<K, SequenceCollection> map;
 
   public MappedSequences() {
     this.map = new LinkedHashMap<>();

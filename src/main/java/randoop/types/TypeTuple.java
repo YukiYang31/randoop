@@ -6,7 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.util.CollectionsPlume;
@@ -178,7 +177,7 @@ public class TypeTuple implements Iterable<Type>, Comparable<TypeTuple> {
   }
 
   @Override
-  public @Unmodifiable Iterator<Type> iterator(@PolyModifiable TypeTuple this) {
+  public @Unmodifiable Iterator<Type> iterator(TypeTuple this) {
     return new TypeIterator(list.iterator());
   }
 

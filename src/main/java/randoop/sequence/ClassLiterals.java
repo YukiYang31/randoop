@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.util.SIList;
 import randoop.types.ClassOrInterfaceType;
 import randoop.types.JavaTypes;
@@ -28,8 +29,8 @@ public class ClassLiterals extends MappedSequences<ClassOrInterfaceType> {
     super.addSequence(key, seq);
   }
 
-  private static final Map<ClassOrInterfaceType, Set<ClassOrInterfaceType>> hashedSuperClasses =
-      new LinkedHashMap<>();
+  private static final @Modifiable Map<ClassOrInterfaceType, Set<ClassOrInterfaceType>>
+      hashedSuperClasses = new LinkedHashMap<>();
 
   @Override
   public SIList<Sequence> getSequences(ClassOrInterfaceType key, Type desiredType) {

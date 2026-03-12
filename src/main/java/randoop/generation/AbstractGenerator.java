@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.options.Option;
 import org.plumelib.options.OptionGroup;
@@ -72,7 +73,7 @@ public abstract class AbstractGenerator {
   private long startTime = -1;
 
   /** Sequences that are used in other sequences (and are thus redundant). */
-  protected Set<Sequence> subsumed_sequences = new LinkedHashSet<>();
+  protected @Growable Set<Sequence> subsumed_sequences = new LinkedHashSet<>();
 
   /**
    * Elapsed time since the generator started.
@@ -126,13 +127,13 @@ public abstract class AbstractGenerator {
    * The list of error test sequences to be output as JUnit tests. May include subsequences of other
    * sequences in the list.
    */
-  public List<ExecutableSequence> outErrorSeqs;
+  public @Growable List<ExecutableSequence> outErrorSeqs;
 
   /**
    * The list of regression sequences to be output as JUnit tests. May include subsequences of other
    * sequences in the list.
    */
-  public List<ExecutableSequence> outRegressionSeqs;
+  public @Growable List<ExecutableSequence> outRegressionSeqs;
 
   /**
    * A filter to determine whether a sequence should be added to the output sequence lists. Returns
