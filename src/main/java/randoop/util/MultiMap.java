@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.signedness.qual.Signed;
 
 /**
@@ -101,11 +102,11 @@ public class MultiMap<K extends @Signed Object, V extends @Signed Object>
   }
 
   @Override
-  @SuppressWarnings({"Growable:argument", "Shrinkable:argument"}) // true positive.
-  // This will throw UnsupportedOperationException
-  // Set<V> myValues = service.getValues("non_existent_key");
-  // myValues.add(newValue);
-  public Set<V> getValues(K key) {
+  @SuppressWarnings({"Growable:argument", "Shrinkable:argument"}) // true positive?
+  // the values of the map has to be @Modifiable sets, but the default of getOrDefault is
+  // Collections.emptySet(),
+  // causing a miss match.
+  public @Unmodifiable Set<V> getValues(K key) {
     return map.getOrDefault(key, Collections.emptySet());
   }
 

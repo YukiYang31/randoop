@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import randoop.main.GenInputsAbstract;
 
 /** Provides the environment for running JUnit tests. */
@@ -90,7 +91,7 @@ public class TestEnvironment {
    *
    * @return the base command to run JUnit tests in this environment, without a test class name
    */
-  private List<String> commandPrefix() {
+  private @Growable List<String> commandPrefix() {
     List<String> command = new ArrayList<>(agentMap.size() + 9);
     command.add("java");
     command.add("-ea");

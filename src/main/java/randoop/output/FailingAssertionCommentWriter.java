@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.plumelib.util.FilesPlume;
 import org.plumelib.util.StringsPlume;
@@ -290,7 +291,7 @@ public class FailingAssertionCommentWriter implements CodeWriter {
       String classname,
       String javaCode,
       Status status,
-      Set<String> flakyTests) {
+      @Growable Set<String> flakyTests) {
     assert !Objects.equals(packageName, "");
     String qualifiedClassname = packageName == null ? classname : packageName + "." + classname;
 

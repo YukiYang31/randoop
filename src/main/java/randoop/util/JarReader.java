@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 
 public class JarReader {
 
@@ -49,7 +50,7 @@ public class JarReader {
     return classes;
   }
 
-  public static List<String> getClasseNamesInJar(String jarName) throws IOException {
+  public static @Replaceable List<String> getClasseNamesInJar(String jarName) throws IOException {
     ArrayList<String> classes = new ArrayList<>();
 
     if (debug) {
