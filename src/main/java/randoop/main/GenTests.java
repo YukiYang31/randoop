@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.checker.signature.qual.ClassGetName;
@@ -429,7 +430,7 @@ public class GenTests extends GenInputsAbstract {
     }
     assert operationModel != null;
 
-    List<TypedOperation> operations = operationModel.getOperations();
+    @Shrinkable List<TypedOperation> operations = operationModel.getOperations();
     Set<ClassOrInterfaceType> classesUnderTest = operationModel.getClassTypes();
 
     /*

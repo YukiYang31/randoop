@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.options.Option;
 import org.plumelib.options.OptionGroup;
@@ -92,7 +93,7 @@ public abstract class AbstractGenerator {
    * generate sequences. In other words, statements specifies the universe of operations from which
    * sequences are generated.
    */
-  protected final List<TypedOperation> operations;
+  protected final @Shrinkable List<TypedOperation> operations;
 
   /**
    * A copy of {@link AbstractGenerator#operations} that contains all operations used to generate
@@ -158,7 +159,7 @@ public abstract class AbstractGenerator {
    * @param stopper optional, additional stopping criterion for the generator. Can be null.
    */
   protected AbstractGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable List<TypedOperation> operations,
       GenInputsAbstract.Limits limits,
       @Nullable ComponentManager componentManager,
       IStopper stopper) {

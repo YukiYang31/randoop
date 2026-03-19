@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signature.qual.ClassGetName;
 import org.plumelib.util.EntryReader;
@@ -79,28 +80,28 @@ public class OperationModel {
 
   /** The set of class declaration types for this model. */
   // TreeSet here for deterministic coverage in the systemTest runNaiveCollectionsTest()
-  private Set<ClassOrInterfaceType> classTypes = new TreeSet<>();
+  private @Modifiable Set<ClassOrInterfaceType> classTypes = new TreeSet<>();
 
   /**
    * The set of input types for this model. It is set by {@link #addClassTypes}, which calls {@link
    * TypeExtractor}.
    */
-  private Set<Type> inputTypes = new TreeSet<>();
+  private @Modifiable Set<Type> inputTypes = new TreeSet<>();
 
   /** The set of classes used as goals in the covered-class test filter. */
-  private final LinkedHashSet<Class<?>> coveredClassesGoal = new LinkedHashSet<>();
+  private final @Modifiable LinkedHashSet<Class<?>> coveredClassesGoal = new LinkedHashSet<>();
 
   /** Map from a class to the literals that occur in it. */
   private MultiMap<ClassOrInterfaceType, Sequence> classLiteralMap = new MultiMap<>();
 
   /** Set of singleton sequences for values from TestValue annotated fields. */
-  private Set<Sequence> annotatedTestValues = new LinkedHashSet<>();
+  private @Modifiable Set<Sequence> annotatedTestValues = new LinkedHashSet<>();
 
   /** Set of object contracts used to generate tests. */
   private ContractSet contracts;
 
   /** Set of concrete operations extracted from classes. */
-  private final Set<TypedOperation> operations = new TreeSet<>();
+  private final @Modifiable Set<TypedOperation> operations = new TreeSet<>();
 
   /** For debugging only. */
   private List<Pattern> omitMethods;
@@ -116,7 +117,7 @@ public class OperationModel {
    *
    * <p>This is populated by {@link #setSutParameterOnlyTypes}.
    */
-  private Set<Type> sutParameterOnlyTypes = new LinkedHashSet<>();
+  private @Modifiable Set<Type> sutParameterOnlyTypes = new LinkedHashSet<>();
 
   /**
    * Create an empty model of test context.
@@ -463,7 +464,7 @@ public class OperationModel {
    *
    * @return the operations of this model
    */
-  public List<TypedOperation> getOperations() {
+  public @Modifiable List<TypedOperation> getOperations() {
     return new ArrayList<>(operations);
   }
 

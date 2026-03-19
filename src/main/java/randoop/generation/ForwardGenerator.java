@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.util.CollectionsPlume;
 import org.plumelib.util.SIList;
@@ -62,13 +64,13 @@ public class ForwardGenerator extends AbstractGenerator {
    * components as {@link #allSequences}, in the same order, but stores them as strings obtained via
    * the toCodeString() method.
    */
-  private final List<String> allsequencesAsCode = new ArrayList<>();
+  private final @Modifiable List<String> allsequencesAsCode = new ArrayList<>();
 
   /**
    * Set and used only if {@link GenInputsAbstract#debug_checks}==true. This contains the same
    * components as {@link #allSequences}, in the same order, but can be accessed by index.
    */
-  private final List<Sequence> allsequencesAsList = new ArrayList<>();
+  private final @Modifiable List<Sequence> allsequencesAsList = new ArrayList<>();
 
   private final TypeInstantiator instantiator;
 
@@ -84,7 +86,7 @@ public class ForwardGenerator extends AbstractGenerator {
    *
    * <p>Each value in the collection is a primitive wrapper or a String.
    */
-  private Set<Object> runtimePrimitivesSeen = new LinkedHashSet<>();
+  private @Modifiable Set<Object> runtimePrimitivesSeen = new LinkedHashSet<>();
 
   /**
    * Create a forward generator.
@@ -96,7 +98,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * @param classesUnderTest set of classes under test
    */
   public ForwardGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable List<TypedOperation> operations,
       Set<TypedOperation> sideEffectFreeMethods,
       GenInputsAbstract.Limits limits,
       ComponentManager componentManager,
@@ -121,7 +123,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * @param classesUnderTest the classes that are under test
    */
   public ForwardGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable List<TypedOperation> operations,
       Set<TypedOperation> sideEffectFreeMethods,
       GenInputsAbstract.Limits limits,
       ComponentManager componentManager,
