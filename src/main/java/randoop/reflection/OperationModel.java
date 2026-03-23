@@ -710,7 +710,10 @@ public class OperationModel {
       AccessibilityPredicate accessibility,
       ReflectionPredicate reflectionPredicate,
       SpecificationCollection operationSpecifications) {
-    Iterator<ClassOrInterfaceType> itor = classTypes.iterator();
+    @SuppressWarnings("Shrinkable:assignment") // false positive
+    @Modifiable
+    Iterator<ClassOrInterfaceType> itor =
+        classTypes.iterator(); // classTypes is a TreeSet, its iterator is modifiable.
     while (itor.hasNext()) {
       ClassOrInterfaceType classType = itor.next();
       Log.logPrintf("addOperationsFromClasses: classType=%s%n", classType);

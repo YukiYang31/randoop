@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import randoop.main.GenInputsAbstract;
 
 /** Provides the environment for running JUnit tests. */
@@ -20,7 +21,7 @@ public class TestEnvironment {
   private final String testClasspath;
 
   /** A map from javaagent jar path to argument string. */
-  private final LinkedHashMap<Path, String> agentMap = new LinkedHashMap<>();
+  private final @Modifiable LinkedHashMap<Path, String> agentMap = new LinkedHashMap<>();
 
   /** The path for the replacecall agent. */
   private Path replaceCallAgentPath;

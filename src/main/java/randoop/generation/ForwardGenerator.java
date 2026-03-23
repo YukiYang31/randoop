@@ -54,7 +54,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * <p>This must be ordered by insertion to allow for flaky test history collection in {@link
    * randoop.main.GenTests#printSequenceExceptionError(AbstractGenerator, SequenceExceptionError)}.
    */
-  private final LinkedHashSet<Sequence> allSequences = new LinkedHashSet<>();
+  private final @Modifiable LinkedHashSet<Sequence> allSequences = new LinkedHashSet<>();
 
   /** The side-effect-free methods. */
   private final Set<TypedOperation> sideEffectFreeMethods;
