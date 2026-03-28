@@ -96,9 +96,9 @@ public class OperationSpecification {
         operation,
         identifiers,
         // These cannot be Collections.emptyList() because the fields are mutable
-        new ArrayList<Precondition>(),
-        new ArrayList<Postcondition>(),
-        new ArrayList<ThrowsCondition>());
+        new ArrayList<>(),
+        new ArrayList<>(),
+        new ArrayList<>());
   }
 
   /**
