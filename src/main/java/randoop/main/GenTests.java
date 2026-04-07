@@ -837,7 +837,7 @@ public class GenTests extends GenInputsAbstract {
   public static final String POSSIBLY_FLAKY_PREFIX = "  Possibly flaky:  ";
 
   /** Methods that are known to be non-flaky. */
-  private static final List<RawSignature> nonFlakyMethods = new ArrayList<>();
+  private static final @Modifiable List<RawSignature> nonFlakyMethods = new ArrayList<>();
 
   static {
     nonFlakyMethods.add(

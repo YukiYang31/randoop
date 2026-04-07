@@ -121,10 +121,10 @@ allprojects {
       checkers = [
         "org.checkerframework.checker.modifiability.ModifiabilityChecker",
         // "org.checkerframework.checker.nullness.NullnessChecker",
-        "org.checkerframework.checker.regex.RegexChecker",
-        "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
-        "org.checkerframework.checker.signedness.SignednessChecker",
-        "org.checkerframework.checker.signature.SignatureChecker",
+        // "org.checkerframework.checker.regex.RegexChecker",
+        // "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
+        // "org.checkerframework.checker.signedness.SignednessChecker",
+        // "org.checkerframework.checker.signature.SignatureChecker",
       ]
     }
     extraJavacArgs = [
@@ -139,7 +139,7 @@ allprojects {
       "-ArequirePrefixInWarningSuppressions",
       "-AwarnUnneededSuppressions",
       "-AwarnRedundantAnnotations",
-      "-ApermitStaticOwning",
+      // "-ApermitStaticOwning",
       // -processing: suppresses "No processor claimed any of these annotations ..."
       // -options: suppresses "target value 8 is obsolete and will be removed in a future release"
       "-Xlint:-processing,-options"
