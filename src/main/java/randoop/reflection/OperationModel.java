@@ -710,7 +710,7 @@ public class OperationModel {
       AccessibilityPredicate accessibility,
       ReflectionPredicate reflectionPredicate,
       SpecificationCollection operationSpecifications) {
-    @SuppressWarnings("Shrinkable:assignment") // false positive
+    @SuppressWarnings("shrinkable:assignment") // false positive
     @Modifiable
     Iterator<ClassOrInterfaceType> itor =
         classTypes.iterator(); // classTypes is a TreeSet, its iterator is modifiable.

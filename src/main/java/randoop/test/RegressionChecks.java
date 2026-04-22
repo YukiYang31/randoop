@@ -29,7 +29,7 @@ public class RegressionChecks implements TestChecks<RegressionChecks> {
    * @param check the check to put in the newly-created singleton set
    */
   @SuppressWarnings(
-      "Growable:assignment") // false positive if check is an ExceptionCheck, but true positive in
+      "growable:assignment") // false positive if check is an ExceptionCheck, but true positive in
   // the else branch.
   public RegressionChecks(Check check) {
     if (check instanceof ExceptionCheck) {

@@ -20,7 +20,7 @@ public class PrimitiveAndWrappedTypeVarNameCollector extends VoidVisitorAdapter<
    * @param variableNames a set containing the names of all the variables that are of primitive or
    *     wrapped types. It is modified by side effect.
    */
-  @SuppressWarnings({"unchecked", "Growable:override.param"})
+  @SuppressWarnings({"unchecked", "growable:override.param"})
   @Override
   public void visit(VariableDeclarationExpr n, @Growable Set<String> variableNames) {
     for (VariableDeclarator vd : n.getVariables()) {

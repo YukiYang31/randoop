@@ -20,7 +20,7 @@ public class ErrorRevealingChecks implements TestChecks<ErrorRevealingChecks> {
 
   static {
     EMPTY = new ErrorRevealingChecks();
-    @SuppressWarnings("Growable:assignment")
+    @SuppressWarnings("growable:assignment")
     @Growable
     Set<Check> emptyChecks = Collections.emptySet();
     EMPTY.checks = emptyChecks; // make immutable
@@ -38,7 +38,7 @@ public class ErrorRevealingChecks implements TestChecks<ErrorRevealingChecks> {
    *
    * @param check the check to put in the newly-created singleton set
    */
-  @SuppressWarnings("Growable:assignment") // true positive?
+  @SuppressWarnings("growable:assignment") // true positive?
   public ErrorRevealingChecks(Check check) {
     validateCheck(check);
     this.checks = Collections.singleton(check);

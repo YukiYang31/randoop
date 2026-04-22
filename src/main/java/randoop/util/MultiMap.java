@@ -102,7 +102,7 @@ public class MultiMap<K extends @Signed Object, V extends @Signed Object>
   }
 
   @Override
-  @SuppressWarnings({"Growable:argument", "Shrinkable:argument"}) // true positive?
+  @SuppressWarnings({"growable:argument", "shrinkable:argument"}) // true positive?
   // the values of the map has to be @Modifiable sets, but the default of getOrDefault is
   // Collections.emptySet(),
   // causing a miss match.

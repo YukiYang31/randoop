@@ -22,7 +22,7 @@ public class ClassTypeVisitor extends VoidVisitorAdapter<Set<ClassOrInterfaceTyp
    * @param params a set of {@code Type} objects; will be modified if the class or interface type is
    *     a non-accessible type by default
    */
-  @SuppressWarnings({"unchecked", "Growable:override.param"})
+  @SuppressWarnings({"unchecked", "growable:override.param"})
   // this function overrides the visit function in VoidVisitorAdapter, which has a parameter of type
   // A. However, in the parent class, A doesn't have to be growable. I think this is a true
   // positive?

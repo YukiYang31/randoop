@@ -85,7 +85,7 @@ public class KeyToMultiSet<K extends @Signed Object, V extends @Signed Object> {
   // shrinkable.
   // map is a LinkedHashMap at run time, and its entrySet().iterator is shrinkable.
   // This is a false positive.
-  @SuppressWarnings("Shrinkable:assignment")
+  @SuppressWarnings("shrinkable:assignment")
   public void clean() {
     // @Shrinkable Set<Map.@Modifiable Entry<K, MultiSet<V>>> entries = map.entrySet();
     // @Shrinkable Iterator<Map.@Modifiable Entry<K, MultiSet<V>>> iter2 = entries.iterator();
