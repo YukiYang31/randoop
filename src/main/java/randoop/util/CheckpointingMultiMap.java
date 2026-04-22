@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
-import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.signedness.qual.Signed;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 
@@ -173,7 +172,7 @@ public class CheckpointingMultiMap<K extends @Signed Object, V extends @Signed O
   // the values of the map has to be @Modifiable sets, but the default of getOrDefault is
   // Collections.emptySet(),
   // causing a miss match.
-  public @Unmodifiable Set<V> getValues(K key) {
+  public Set<V> getValues(K key) {
     if (key == null) throw new IllegalArgumentException("arg cannot be null.");
     return map.getOrDefault(key, Collections.emptySet());
   }
