@@ -14,8 +14,8 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.Owning;
@@ -1196,9 +1196,8 @@ public abstract class GenInputsAbstract extends CommandHandler {
     // This does not exclude explicitly-specified methods.  In other words, if the user specified a
     // method explicitly, this does not exclude it even if it is in an excluded class.
     for (
-        // @SuppressWarnings("shrinkable:assignment") // false positive.
-        @Shrinkable Iterator<String> itor = classnames.iterator();
-        itor.hasNext(); ) {
+    // @SuppressWarnings("shrinkable:assignment") // false positive.
+    @Shrinkable Iterator<String> itor = classnames.iterator(); itor.hasNext(); ) {
       String classname = itor.next();
       if (shouldOmitClass(classname)) {
         itor.remove();
@@ -1410,7 +1409,8 @@ public abstract class GenInputsAbstract extends CommandHandler {
    * @param file the file containing the strings
    * @return the lines in the file, or null if listFile is null
    */
-  public static @Modifiable @IteratorPreserveRemove Set<@ClassGetName String> getClassNamesFromFile(Path file) {
+  public static @Modifiable @IteratorPreserveRemove Set<@ClassGetName String> getClassNamesFromFile(
+      Path file) {
     Set<@ClassGetName String> result = new LinkedHashSet<>();
     for (String line : getStringSetFromFile(file, "class names")) {
       if (!Signatures.isClassGetName(line)) {

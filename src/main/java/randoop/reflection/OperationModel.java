@@ -81,7 +81,8 @@ public class OperationModel {
 
   /** The set of class declaration types for this model. */
   // TreeSet here for deterministic coverage in the systemTest runNaiveCollectionsTest()
-  private @Modifiable @IteratorPreserveRemove Set<ClassOrInterfaceType> classTypes = new TreeSet<>();
+  private @Modifiable @IteratorPreserveRemove Set<ClassOrInterfaceType> classTypes =
+      new TreeSet<>();
 
   /**
    * The set of input types for this model. It is set by {@link #addClassTypes}, which calls {@link
@@ -712,7 +713,8 @@ public class OperationModel {
       ReflectionPredicate reflectionPredicate,
       SpecificationCollection operationSpecifications) {
     // @SuppressWarnings("shrinkable:assignment") // false positive
-    @Modifiable Iterator<ClassOrInterfaceType> itor =
+    @Modifiable
+    Iterator<ClassOrInterfaceType> itor =
         classTypes.iterator(); // classTypes is a TreeSet, its iterator is modifiable.
     while (itor.hasNext()) {
       ClassOrInterfaceType classType = itor.next();
