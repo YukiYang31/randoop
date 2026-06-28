@@ -15,15 +15,12 @@ import org.checkerframework.checker.signedness.qual.UnknownSignedness;
  *
  * @param <E> the type of elements
  */
-@SuppressWarnings(
-    "modifiability:annotation.unverified") // cannot verify that CheckpointingSet is @Modifiable
 public class CheckpointingSet<E extends @Signed Object> extends AbstractSet<E> {
 
   // This uses a MultiMap just because that is an existing checkpointing data structure.
   // The value is always true in this mapping, never false.
   public final CheckpointingMultiMap<E, Boolean> map;
 
-  @SuppressWarnings("modifiability:super.invocation") // calls `super`
   public @Modifiable CheckpointingSet() {
     this.map = new CheckpointingMultiMap<>();
   }
@@ -100,7 +97,7 @@ public class CheckpointingSet<E extends @Signed Object> extends AbstractSet<E> {
       return current;
     }
 
-    @SuppressWarnings("modifiability:method.invocation") // outer this
+    @SuppressWarnings("modifiability:method.invocation") // wrapper around outer this
     @Override
     public void remove(@Shrinkable CheckpointingSetIterator this) {
       // Delegate to CheckpointingSet.remove() to preserve checkpointing
