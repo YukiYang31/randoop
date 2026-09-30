@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.signedness.qual.Signed;
 
 /**
@@ -18,7 +19,7 @@ import org.checkerframework.checker.signedness.qual.Signed;
 public class KeyToMultiSet<K extends @Signed Object, V extends @Signed Object> {
 
   /** The backing map. */
-  private final Map<K, MultiSet<V>> map;
+  private final @Modifiable Map<K, MultiSet<V>> map;
 
   /** Creates a new, empty KeyToMultiSet. */
   public KeyToMultiSet() {

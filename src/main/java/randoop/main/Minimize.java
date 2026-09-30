@@ -72,6 +72,9 @@ import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.options.Option;
 import org.plumelib.options.OptionGroup;
 import org.plumelib.options.Options;
@@ -462,7 +465,7 @@ public class Minimize extends CommandHandler {
 
     // Map from primitive variable name to the variable's value extracted
     // from a passing assertion.  Modified by the call to storeValueFromAssertion().
-    Map<String, String> primitiveValues = new HashMap<>();
+    @Modifiable Map<String, String> primitiveValues = new HashMap<>();
 
     // Find all the names of the primitive and wrapped types.
     Set<String> primitiveAndWrappedTypes = new HashSet<>();
@@ -537,7 +540,7 @@ public class Minimize extends CommandHandler {
    */
   private static void storeValueFromAssertion(
       Statement currStmt,
-      Map<String, String> primitiveValues,
+      @Modifiable Map<String, String> primitiveValues,
       Set<String> primitiveAndWrappedTypeVars) {
     // Check if the statement is an assertion regarding a value that can be
     // used in a simplification later on.
@@ -600,7 +603,7 @@ public class Minimize extends CommandHandler {
   private static void primitiveVarEquality(
       Expression exp1,
       Expression exp2,
-      Map<String, String> primitiveValues,
+      @Modifiable Map<String, String> primitiveValues,
       Set<String> primitiveAndWrappedTypeVars) {
 
     NameExpr name;
@@ -1483,7 +1486,8 @@ public class Minimize extends CommandHandler {
     "JdkObsolete", // for LinkedList
     "ReferenceEquality"
   })
-  private static void getOrphanCommentsBeforeThisChildNode(final Node node, List<Comment> result) {
+  private static void getOrphanCommentsBeforeThisChildNode(
+      final Node node, @Growable @IteratorPolyMod List<Comment> result) {
     if (node instanceof Comment) {
       return;
     }

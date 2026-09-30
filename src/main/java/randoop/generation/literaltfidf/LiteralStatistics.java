@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.util.SIList;
 import randoop.generation.ComponentManager;
 import randoop.reflection.LiteralFileReader;
@@ -35,7 +36,8 @@ public class LiteralStatistics {
    * ComponentManager}, this map is read-only. It's read once when {@link TfIdfSelector} is created
    * for this scope, then never accessed again for this scope.
    */
-  private final Map<Type, Map<Sequence, LiteralUses>> literalUsesByType = new LinkedHashMap<>();
+  private final @Modifiable Map<Type, @Modifiable Map<Sequence, LiteralUses>> literalUsesByType =
+      new LinkedHashMap<>();
 
   /**
    * The number of classes in this scope.

@@ -7,6 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.options.Option;
 import org.plumelib.options.OptionGroup;
@@ -92,7 +95,7 @@ public abstract class AbstractGenerator {
    * generate sequences. In other words, statements specifies the universe of operations from which
    * sequences are generated.
    */
-  protected final List<TypedOperation> operations;
+  protected final @Shrinkable @IteratorPolyMod List<TypedOperation> operations;
 
   /**
    * A copy of {@link AbstractGenerator#operations} that contains all operations used to generate
@@ -127,13 +130,13 @@ public abstract class AbstractGenerator {
    * The list of error test sequences to be output as JUnit tests. May include subsequences of other
    * sequences in the list.
    */
-  public List<ExecutableSequence> outErrorSeqs;
+  public @Modifiable @IteratorPolyMod List<ExecutableSequence> outErrorSeqs;
 
   /**
    * The list of regression sequences to be output as JUnit tests. May include subsequences of other
    * sequences in the list.
    */
-  public List<ExecutableSequence> outRegressionSeqs;
+  public @Modifiable @IteratorPolyMod List<ExecutableSequence> outRegressionSeqs;
 
   /**
    * A filter to determine whether a sequence should be added to the output sequence lists. Returns
@@ -158,7 +161,7 @@ public abstract class AbstractGenerator {
    * @param stopper optional, additional stopping criterion for the generator. Can be null.
    */
   protected AbstractGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable @IteratorPolyMod List<TypedOperation> operations,
       GenInputsAbstract.Limits limits,
       @Nullable ComponentManager componentManager,
       IStopper stopper) {

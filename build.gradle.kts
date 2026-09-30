@@ -117,33 +117,14 @@ allprojects {
   apply(plugin = "org.checkerframework")
   configure<CheckerFrameworkExtension> {
     version = rootProject.libs.versions.checker.get()
-    if (project.hasProperty("cfNullness")) {
-      checkers =
-        listOf(
-          "org.checkerframework.checker.nullness.NullnessChecker",
-          // These are included to avoid this failure:
-          //   The following options were not recognized by any processor: "[permitStaticOwning]"
-          "org.checkerframework.checker.regex.RegexChecker",
-          "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
-          "org.checkerframework.checker.signedness.SignednessChecker",
-          "org.checkerframework.checker.signature.SignatureChecker",
-        )
-    } else {
-      checkers =
-        listOf(
-          // "org.checkerframework.checker.nullness.NullnessChecker",
-          "org.checkerframework.checker.regex.RegexChecker",
-          "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
-          "org.checkerframework.checker.signedness.SignednessChecker",
-          "org.checkerframework.checker.signature.SignatureChecker",
-        )
-    }
+    checkers = listOf("org.checkerframework.checker.modifiability.ModifiabilityChecker")
     extraJavacArgs =
-      listOf(
+      listOfNotNull(
         // Uncomment -proc:none to disable all annotation processing and speed up the build.
         // "-proc:none",
 
-        "-Werror",
+        // -PcfNoWerror: report all warnings (javac stops checking later classes after an error).
+        if (project.hasProperty("cfNoWerror")) null else "-Werror",
         "-Awarns",
         "-Xmaxwarns",
         "10000",
@@ -151,7 +132,6 @@ allprojects {
         "-ArequirePrefixInWarningSuppressions",
         "-AwarnUnneededSuppressions",
         "-AwarnRedundantAnnotations",
-        "-ApermitStaticOwning",
         // -processing: suppresses "No processor claimed any of these annotations ..."
         // -options: suppresses "target value 8 is obsolete and will be removed in a future release"
         "-Xlint:-processing,-options",
@@ -1229,6 +1209,16 @@ configure<PublishingExtension> {
       artifact(tasks.shadowJar)
       artifact(tasks["javadocJar"])
       artifact(tasks["sourcesJar"])
+    }
+  }
+}
+
+// -PcfNoWerror: don't treat warnings as errors, so that the checker reports every warning
+// (javac stops checking later classes once an error occurs).
+if (project.hasProperty("cfNoWerror")) {
+  allprojects {
+    tasks.withType<JavaCompile>().configureEach {
+      doFirst { options.compilerArgs.removeAll(listOf("-Werror")) }
     }
   }
 }

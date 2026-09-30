@@ -16,6 +16,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.util.ClassDeterministic;
 import org.plumelib.util.MapsP;
 import randoop.condition.RandoopSpecificationError;
@@ -63,7 +65,7 @@ public class ReflectionManager {
   private AccessibilityPredicate predicate;
 
   /** The visitors to apply. */
-  private ArrayList<ClassVisitor> visitors;
+  private @Modifiable @IteratorPolyMod ArrayList<ClassVisitor> visitors;
 
   /**
    * Creates a manager object that uses the given predicate to determine which classes, methods, and
@@ -235,7 +237,7 @@ public class ReflectionManager {
   @SuppressWarnings({"GetClassOnEnum"}) // c is an enum class
   private void applyToEnum(ClassVisitor visitor, Class<?> c) throws RandoopSpecificationError {
     // Maps from a name to a set of methods.
-    Map<String, Set<Method>> overrideMethods = new HashMap<>();
+    Map<String, @Modifiable Set<Method>> overrideMethods = new HashMap<>();
     for (Object obj : c.getEnumConstants()) {
       Enum<?> e = (Enum<?>) obj;
       applyTo(visitor, e);

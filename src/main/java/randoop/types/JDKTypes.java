@@ -50,6 +50,7 @@ import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TransferQueue;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import randoop.main.RandoopBug;
 
 /**
@@ -259,7 +260,7 @@ public final class JDKTypes {
       GenericClassType.forClass(WeakHashMap.class);
 
   /** Maps interface and abstract class types to a selected implementing type. */
-  private static Map<GenericClassType, GenericClassType> implementingTypeMap =
+  private static @Modifiable Map<GenericClassType, GenericClassType> implementingTypeMap =
       new LinkedHashMap<>();
 
   static {

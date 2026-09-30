@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signature.qual.ClassGetName;
 import org.plumelib.util.EntryReader;
@@ -84,28 +86,28 @@ public final class OperationModel {
 
   /** The set of class declaration types for this model. */
   // TreeSet here for deterministic coverage in the systemTest runNaiveCollectionsTest()
-  private Set<ClassOrInterfaceType> classTypes = new TreeSet<>();
+  private @Modifiable @IteratorPolyMod Set<ClassOrInterfaceType> classTypes = new TreeSet<>();
 
   /**
    * The set of input types for this model. It is set by {@link #addClassTypes}, which calls {@link
    * TypeExtractor}.
    */
-  private Set<Type> inputTypes = new TreeSet<>();
+  private @Modifiable Set<Type> inputTypes = new TreeSet<>();
 
   /** The set of classes used as goals in the covered-class test filter. */
-  private final LinkedHashSet<Class<?>> coveredClassesGoal = new LinkedHashSet<>();
+  private final @Modifiable LinkedHashSet<Class<?>> coveredClassesGoal = new LinkedHashSet<>();
 
   /** The storage for constant information. */
   private ScopeToLiteralStatistics scopeToLiteralStatistics = new ScopeToLiteralStatistics();
 
   /** Set of singleton sequences for values from TestValue annotated fields. */
-  private Set<Sequence> annotatedTestValues = new LinkedHashSet<>();
+  private @Modifiable Set<Sequence> annotatedTestValues = new LinkedHashSet<>();
 
   /** Set of object contracts used to generate tests. */
   private ContractSet contracts;
 
   /** Set of concrete operations extracted from classes. */
-  private final Set<TypedOperation> operations = new TreeSet<>();
+  private final @Modifiable Set<TypedOperation> operations = new TreeSet<>();
 
   /** For debugging only. */
   private List<Pattern> omitMethods;
@@ -121,7 +123,7 @@ public final class OperationModel {
    *
    * <p>This is populated by {@link #setSutParameterOnlyTypes}.
    */
-  private Set<Type> sutParameterOnlyTypes = new LinkedHashSet<>();
+  private @Modifiable @IteratorPolyMod Set<Type> sutParameterOnlyTypes = new LinkedHashSet<>();
 
   /**
    * Create an empty model of test context.
@@ -299,7 +301,7 @@ public final class OperationModel {
       return;
     }
     // Add sequences from external literals files (ignore "CLASSES").
-    Map<ClassOrInterfaceType, Set<Sequence>> sequencesPerType = new LinkedHashMap<>();
+    @Modifiable Map<ClassOrInterfaceType, @Modifiable Set<Sequence>> sequencesPerType = new LinkedHashMap<>();
     for (String literalsFile : GenInputsAbstract.literals_file) {
       if (literalsFile.equals("CLASSES")) {
         continue;
@@ -317,7 +319,8 @@ public final class OperationModel {
         }
       }
     }
-    for (Map.Entry<ClassOrInterfaceType, Set<Sequence>> e : sequencesPerType.entrySet()) {
+    for (Map.Entry<ClassOrInterfaceType, @Modifiable Set<Sequence>> e :
+        sequencesPerType.entrySet()) {
       scopeToLiteralStatistics.recordSequencesInClass(e.getKey(), e.getValue());
     }
 
@@ -502,7 +505,7 @@ public final class OperationModel {
    *
    * @return the operations of this model
    */
-  public List<TypedOperation> getOperations() {
+  public @Modifiable @IteratorPolyMod List<TypedOperation> getOperations() {
     return new ArrayList<>(operations);
   }
 

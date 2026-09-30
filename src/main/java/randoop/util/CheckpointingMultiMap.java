@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.signedness.qual.Signed;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 
@@ -26,10 +28,10 @@ public class CheckpointingMultiMap<K extends @Signed Object, V extends @Signed O
   public static boolean verbose_log = false;
 
   /** The backing map. */
-  private final Map<K, Set<V>> map;
+  private final @Modifiable Map<K, @Modifiable Set<V>> map;
 
   /** The marks/checkpoints that have been set so far, to permit restoring to a previous state. */
-  public final List<Integer> marks;
+  public final @Modifiable @IteratorPolyMod List<Integer> marks;
 
   /** The operations on the map. */
   private enum Ops {
@@ -40,7 +42,7 @@ public class CheckpointingMultiMap<K extends @Signed Object, V extends @Signed O
   }
 
   /** The operations that have been performed on this map. */
-  private final List<OpKeyVal> ops;
+  private final @Modifiable @IteratorPolyMod List<OpKeyVal> ops;
 
   /** The number of operations that have been performed on this map. */
   private int steps;

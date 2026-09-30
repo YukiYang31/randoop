@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import randoop.ExecutionOutcome;
 import randoop.NotExecuted;
 
@@ -17,9 +19,9 @@ import randoop.NotExecuted;
 public final class Execution {
 
   // The execution outcome of each statement.
-  final List<ExecutionOutcome> outcomes;
+  final @Modifiable @IteratorPolyMod List<ExecutionOutcome> outcomes;
 
-  private Set<Class<?>> coveredClasses;
+  private @Modifiable Set<Class<?>> coveredClasses;
 
   /**
    * Create an Execution to store the execution results of the given sequence. The list of outcomes

@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.checkerframework.dataflow.qual.Pure;
@@ -48,10 +50,12 @@ public final class Sequence {
    * the values "produced" by some statement of the sequence. Should be final but cannot because of
    * serialization.
    */
-  private final transient List<Variable> lastStatementVariables = new ArrayList<>();
+  private final transient @Modifiable @IteratorPolyMod List<Variable> lastStatementVariables =
+      new ArrayList<>();
 
   /** The types of elements of {@link #lastStatementVariables}. */
-  private final transient List<Type> lastStatementTypes = new ArrayList<>();
+  private final transient @Modifiable @IteratorPolyMod List<Type> lastStatementTypes =
+      new ArrayList<>();
 
   /** If true, inline primitive values rather than creating and using a variable. */
   private transient boolean shouldInlineLiterals = true;

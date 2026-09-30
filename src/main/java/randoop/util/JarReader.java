@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 
 public final class JarReader {
 
@@ -55,7 +57,8 @@ public final class JarReader {
     return classes;
   }
 
-  public static List<String> getClasseNamesInJar(String jarName) throws IOException {
+  public static @Modifiable @IteratorPolyMod List<String> getClasseNamesInJar(String jarName)
+      throws IOException {
     ArrayList<String> classes = new ArrayList<>();
 
     if (debug) {

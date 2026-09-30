@@ -2,6 +2,9 @@ package randoop.util;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.signedness.qual.Signed;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
@@ -18,12 +21,12 @@ public class CheckpointingSet<E extends @Signed Object> extends AbstractSet<E> {
   // The value is always true in this mapping, never false.
   public final CheckpointingMultiMap<E, Boolean> map;
 
-  public CheckpointingSet() {
+  public @Modifiable CheckpointingSet() {
     this.map = new CheckpointingMultiMap<>();
   }
 
   @Override
-  public boolean add(E elt) {
+  public boolean add(@Growable CheckpointingSet<E> this, E elt) {
     if (elt == null) {
       throw new IllegalArgumentException("arg cannot be null.");
     }
@@ -42,7 +45,8 @@ public class CheckpointingSet<E extends @Signed Object> extends AbstractSet<E> {
   }
 
   @Override
-  public boolean remove(@MustCallUnknown @UnknownSignedness Object elt) {
+  public boolean remove(
+      @Shrinkable CheckpointingSet<E> this, @MustCallUnknown @UnknownSignedness Object elt) {
     if (elt == null) {
       throw new IllegalArgumentException("arg cannot be null.");
     }
@@ -94,7 +98,7 @@ public class CheckpointingSet<E extends @Signed Object> extends AbstractSet<E> {
     }
 
     @Override
-    public void remove() {
+    public void remove(@Shrinkable CheckpointingSet<E>.@Shrinkable CheckpointingSetIterator this) {
       // Delegate to CheckpointingSet.remove() to preserve checkpointing
       if (current == null) {
         throw new IllegalStateException();

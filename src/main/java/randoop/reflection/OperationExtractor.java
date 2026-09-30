@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.util.CollectionsPlume;
 import org.plumelib.util.StringsPlume;
 import randoop.condition.ExecutableSpecification;
@@ -47,7 +49,8 @@ public class OperationExtractor extends DefaultClassVisitor {
   private ClassOrInterfaceType classType;
 
   /** The operations collected by the extractor. This is the product of applying the visitor. */
-  private final Collection<TypedOperation> operations = new TreeSet<>();
+  private final @Modifiable @IteratorPolyMod Collection<TypedOperation> operations =
+      new TreeSet<>();
 
   /** The reflection policy for collecting operations. */
   private final ReflectionPredicate reflectionPredicate;

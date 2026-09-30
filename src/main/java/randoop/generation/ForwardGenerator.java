@@ -8,6 +8,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.util.CollectionsPlume;
@@ -58,7 +61,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * <p>This must be ordered by insertion to allow for flaky test history collection in {@link
    * randoop.main.GenTests#printSequenceExceptionError(AbstractGenerator, SequenceExceptionError)}.
    */
-  private final LinkedHashSet<Sequence> allSequences = new LinkedHashSet<>();
+  private final @Modifiable LinkedHashSet<Sequence> allSequences = new LinkedHashSet<>();
 
   /** The side-effect-free methods. */
   private final Set<TypedOperation> sideEffectFreeMethods;
@@ -68,13 +71,13 @@ public class ForwardGenerator extends AbstractGenerator {
    * components as {@link #allSequences}, in the same order, but stores them as strings obtained via
    * the toCodeString() method.
    */
-  private final List<String> allsequencesAsCode = new ArrayList<>();
+  private final @Modifiable @IteratorPolyMod List<String> allsequencesAsCode = new ArrayList<>();
 
   /**
    * Set and used only if {@link GenInputsAbstract#debug_checks}==true. This contains the same
    * components as {@link #allSequences}, in the same order, but can be accessed by index.
    */
-  private final List<Sequence> allsequencesAsList = new ArrayList<>();
+  private final @Modifiable @IteratorPolyMod List<Sequence> allsequencesAsList = new ArrayList<>();
 
   private final TypeInstantiator instantiator;
 
@@ -89,7 +92,8 @@ public class ForwardGenerator extends AbstractGenerator {
    * scope, used to select literals from the component manager's literal statistics. A scope is a
    * type, package, or {@code ScopeToLiteralStatistics#ALL_SCOPE}.
    */
-  private @MonotonicNonNull HashMap<@Nullable Object, TfIdfSelector> scopeToTfIdfSelectors;
+  private @MonotonicNonNull @Modifiable HashMap<@Nullable Object, TfIdfSelector>
+      scopeToTfIdfSelectors;
 
   /**
    * The set of all primitive values seen during generation and execution of sequences. This set is
@@ -97,7 +101,7 @@ public class ForwardGenerator extends AbstractGenerator {
    *
    * <p>Each value in the collection is a primitive wrapper or a String.
    */
-  private Set<Object> runtimePrimitivesSeen = new LinkedHashSet<>();
+  private @Modifiable Set<Object> runtimePrimitivesSeen = new LinkedHashSet<>();
 
   /**
    * Create a forward generator.
@@ -109,7 +113,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * @param classesUnderTest set of classes under test
    */
   public ForwardGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable @IteratorPolyMod List<TypedOperation> operations,
       Set<TypedOperation> sideEffectFreeMethods,
       GenInputsAbstract.Limits limits,
       ComponentManager componentManager,
@@ -134,7 +138,7 @@ public class ForwardGenerator extends AbstractGenerator {
    * @param classesUnderTest the classes that are under test
    */
   public ForwardGenerator(
-      List<TypedOperation> operations,
+      @Shrinkable @IteratorPolyMod List<TypedOperation> operations,
       Set<TypedOperation> sideEffectFreeMethods,
       GenInputsAbstract.Limits limits,
       ComponentManager componentManager,
