@@ -60,7 +60,7 @@ public final class NonreceiverTerm extends CallableOperation {
           throw new RandoopBug(
               "value=" + value + ", value.getClass()=" + value.getClass() + ",type=" + type);
         }
-        if (!NonreceiverTerm.isNonreceiverType(value.getClass())) {
+        if (!isNonreceiverType(value.getClass())) {
           throw new RandoopBug(
               "value is not a primitive-like value: value = "
                   + value
@@ -495,7 +495,7 @@ public final class NonreceiverTerm extends CallableOperation {
   /**
    * {@inheritDoc}
    *
-   * @return true, since all of objects are non-receivers
+   * @return true, since all of these objects are non-receivers
    */
   @Override
   public boolean isNonreceivingValue() {

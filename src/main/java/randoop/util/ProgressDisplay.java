@@ -165,8 +165,9 @@ public class ProgressDisplay extends Thread {
     System.exit(1);
   }
 
+  /** Prints, to standard output, the stack trace of every live thread. */
   private void printAllStackTraces() {
-    for (Map.Entry<Thread, StackTraceElement[]> trace : Thread.getAllStackTraces().entrySet()) {
+    for (Map.Entry<Thread, StackTraceElement[]> trace : getAllStackTraces().entrySet()) {
       System.out.println("--------------------------------------------------");
       System.out.println("Thread " + trace.getKey().toString());
       System.out.println("Stack trace:");

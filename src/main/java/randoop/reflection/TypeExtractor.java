@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import randoop.condition.RandoopSpecificationError;
 import randoop.types.ClassOrInterfaceType;
 import randoop.types.ParameterizedType;
 import randoop.types.PrimitiveType;
@@ -37,7 +38,8 @@ class TypeExtractor extends DefaultClassVisitor {
   }
 
   @Override
-  public void visit(Class<?> c, ReflectionManager reflectionManager) {
+  public void visit(Class<?> c, ReflectionManager reflectionManager)
+      throws RandoopSpecificationError {
     addIfConcrete(ClassOrInterfaceType.forClass(c));
     reflectionManager.apply(this, c);
   }

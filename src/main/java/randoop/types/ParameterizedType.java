@@ -49,12 +49,12 @@ public abstract class ParameterizedType extends ClassOrInterfaceType {
 
   /**
    * Performs the conversion of {@code java.lang.reflect.ParameterizedType} to a {@code
-   * ParameterizedType} .
+   * ParameterizedType}.
    *
    * @param type the reflective type object
    * @return an object of type {@code ParameterizedType}
    */
-  public static ParameterizedType forType(java.lang.reflect.Type type) {
+  public static ParameterizedType forType(Type type) {
     if (!(type instanceof java.lang.reflect.ParameterizedType)) {
       throw new IllegalArgumentException("type must be java.lang.reflect.ParameterizedType");
     }
@@ -70,7 +70,7 @@ public abstract class ParameterizedType extends ClassOrInterfaceType {
     // When building parameterized type, first create generic class from the
     // rawtype, and then instantiate with the arguments collected from the
     // java.lang.reflect.ParameterizedType interface.
-    GenericClassType genericClass = ParameterizedType.forClass((Class<?>) rawType);
+    GenericClassType genericClass = forClass((Class<?>) rawType);
     return new InstantiatedType(genericClass, typeArguments);
   }
 

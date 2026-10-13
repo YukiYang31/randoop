@@ -23,6 +23,7 @@ import randoop.Globals;
 import randoop.NormalExecution;
 import randoop.NotExecuted;
 import randoop.condition.ExpectedOutcomeTable;
+import randoop.condition.RandoopSpecificationError;
 import randoop.main.GenInputsAbstract;
 import randoop.main.RandoopBug;
 import randoop.operation.MethodCall;
@@ -252,12 +253,14 @@ public class ExecutableSequence {
    * @see #execute(ExecutionVisitor, TestCheckGenerator, boolean)
    * @param visitor the {@link ExecutionVisitor} that collects checks from results
    * @param gen the check generator for tests
+   * @throws RandoopSpecificationError if a specification expression cannot be evaluated
    */
-  public void execute(ExecutionVisitor visitor, TestCheckGenerator gen) {
+  public void execute(ExecutionVisitor visitor, TestCheckGenerator gen)
+      throws RandoopSpecificationError {
     // TODO: Setting the third argument to false would mask fewer errors.  Doing so causes 3 Randoop
     // system tests to fail (because some sequence throws an exception before the last statement).
     // One is innocuous:  java.lang.OutOfMemoryError due to creation of a very large object --
-    // repeated executions evenutally exhaust memory.  Two others are odd: failures in
+    // repeated executions eventually exhaust memory.  Two others are odd: failures in
     // sun.reflect.DelegatingMethodAccessorImpl.invoke called by java.lang.reflect.Method.invoke.
     execute(visitor, gen, true);
   }
@@ -299,9 +302,11 @@ public class ExecutableSequence {
    * @param ignoreException if true, ignore exceptions thrown before the last statement
    * @throws Error if execution of the sequence throws an exception and {@code
    *     ignoreException==false}
+   * @throws RandoopSpecificationError if a specification expression cannot be evaluated
    */
   @SuppressWarnings("SameParameterValue")
-  private void execute(ExecutionVisitor visitor, TestCheckGenerator gen, boolean ignoreException) {
+  private void execute(ExecutionVisitor visitor, TestCheckGenerator gen, boolean ignoreException)
+      throws RandoopSpecificationError {
 
     long startTime = System.nanoTime();
     try { // try statement for timing
@@ -385,6 +390,7 @@ public class ExecutableSequence {
     for (Object ro : ros) {
       if (ro == null) {
         this.hasNullInput = true;
+        break;
       }
     }
     return ros;

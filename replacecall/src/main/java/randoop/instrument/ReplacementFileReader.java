@@ -66,7 +66,7 @@ public final class ReplacementFileReader {
       DOT_DELIMITED_IDS + "(?:\\.<init>)?" + "\\([^)]*\\)";
 
   /**
-   * Unanchored pattern to match of method replacements consisting of a pair of signatures. Uses the
+   * Unanchored pattern to match method replacements consisting of a pair of signatures. Uses the
    * naive signature pattern separated by one or more spaces or tabs. Can be used to decide whether
    * a replacement file line indicates a method replacement. Groups 1 and 2 correspond to each of
    * the signature strings. (Use with {@code matches}.)
@@ -83,7 +83,7 @@ public final class ReplacementFileReader {
 
   /** Do not instantiate. */
   private ReplacementFileReader() {
-    throw new Error("Do not instantiate");
+    throw new UnsupportedOperationException("Do not instantiate");
   }
 
   /**
@@ -336,7 +336,7 @@ public final class ReplacementFileReader {
 
     for (Method m : replacementJC.getMethods()) {
       if (m.getName().equals("<init>")) {
-        // Do not to replace the original class constructor with the replacement class constructor.
+        // Do not replace the original class constructor with the replacement class constructor.
         continue;
       }
       if (m.isPrivate()) {
@@ -427,9 +427,12 @@ public final class ReplacementFileReader {
         throw new ReplacementException("Error reading jar file " + file, e);
       }
     } else if (protocol.equals("file")) {
-      Path path = null;
+      Path path;
       try {
-        @SuppressWarnings("JdkObsolete") // The replacement requires JDK 11+.
+        @SuppressWarnings({
+          "JdkObsolete",
+          "PMD.UseStandardCharsets"
+        }) // The replacement requires JDK 11+.
         Path pathTmp = Paths.get(URLDecoder.decode(url.getPath(), "UTF-8"));
         path = pathTmp;
       } catch (Exception e) {
@@ -568,7 +571,7 @@ public final class ReplacementFileReader {
    * as a {@link ReplacementFileException} in {@link ReplacementFileReader#readReplacements(Reader,
    * String)}.
    */
-  static class ReplacementException extends Throwable {
+  static class ReplacementException extends Exception {
 
     private static final long serialVersionUID = 20250811;
 

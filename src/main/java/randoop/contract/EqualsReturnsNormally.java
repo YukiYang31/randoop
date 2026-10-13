@@ -6,8 +6,10 @@ import randoop.types.TypeTuple;
 
 /** Checks that calling equals() on an object does not throw an exception. */
 public final class EqualsReturnsNormally extends ObjectContract {
+  /** The singleton instance of this class. */
   private static final EqualsReturnsNormally instance = new EqualsReturnsNormally();
 
+  /** Private constructor to enforce singleton. */
   private EqualsReturnsNormally() {}
 
   public static EqualsReturnsNormally getInstance() {
@@ -21,7 +23,10 @@ public final class EqualsReturnsNormally extends ObjectContract {
     Object o = objects[0];
     assert o != null;
     try {
-      @SuppressWarnings("UnusedVariable") // Execute equals() but ignore its value.
+      @SuppressWarnings({
+        "UnusedVariable",
+        "PMD.UnusedLocalVariable"
+      }) // Execute equals() but ignore its value.
       boolean ignore = o.equals(o);
     } catch (Exception e) {
       return false;

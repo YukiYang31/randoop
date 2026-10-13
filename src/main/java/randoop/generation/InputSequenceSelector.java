@@ -7,7 +7,7 @@ import randoop.sequence.Sequence;
 /** Interface for selecting sequences as input for creating new sequences. */
 public abstract class InputSequenceSelector {
 
-  /** Creates a InputSequenceSelector. */
+  /** Creates an InputSequenceSelector. */
   public InputSequenceSelector() {}
 
   /**
@@ -25,5 +25,8 @@ public abstract class InputSequenceSelector {
    *
    * @param eSeq the recently executed sequence which is new and unique, and has just been executed
    */
-  public void createdExecutableSequence(ExecutableSequence eSeq) {}
+  @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
+  public void createdExecutableSequence(ExecutableSequence eSeq) {
+    // The default implementation does nothing. Subclasses may override it to add behavior.
+  }
 }

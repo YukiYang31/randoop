@@ -16,7 +16,7 @@ public final class Globals {
 
   /** Do not instantiate. */
   private Globals() {
-    throw new Error("Do not instantiate");
+    throw new UnsupportedOperationException("Do not instantiate");
   }
 
   /** The version number for Randoop. */
@@ -35,7 +35,9 @@ public final class Globals {
     public NullOutputStream() {}
 
     @Override
-    public void write(@PolySigned int b) throws IOException {}
+    public void write(@PolySigned int b) throws IOException {
+      // The null stream consumes and ignores all data.
+    }
   }
 
   /**

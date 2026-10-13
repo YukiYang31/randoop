@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.plumelib.util.EntryReader;
 import randoop.Globals;
+import randoop.condition.RandoopSpecificationError;
 import randoop.generation.ForwardGenerator;
 import randoop.main.GenInputsAbstract;
 import randoop.main.OptionsCache;
@@ -22,7 +23,7 @@ import randoop.reflection.DefaultReflectionPredicate;
 import randoop.reflection.OperationExtractor;
 
 // DEPRECATED. Will delete after testing other performance tests
-// in different machines.
+// on different machines.
 public class ForwardExplorerPerformanceTest {
 
   private static final int TIME_LIMIT_SECS = 10;
@@ -57,7 +58,7 @@ public class ForwardExplorerPerformanceTest {
 
   @Test
   @SuppressWarnings("unchecked")
-  public void test1() {
+  public void test1() throws RandoopSpecificationError {
 
     String resourcename = "java.util.classlist.java1.6.txt";
 

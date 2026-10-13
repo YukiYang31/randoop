@@ -161,6 +161,11 @@ public final class JUnitCreator {
     return junitCreator;
   }
 
+  /**
+   * Creates a JUnitCreator. Clients should call {@link #getTestCreator}.
+   *
+   * @param packageName the package name for the generated test classes
+   */
   private JUnitCreator(String packageName) {
     assert !Objects.equals(packageName, "");
     this.packageName = packageName;
@@ -477,7 +482,10 @@ public final class JUnitCreator {
 
       String testVariable = instanceNameGen.next();
       ClassOrInterfaceType testClassType = new ClassOrInterfaceType(testClass);
-      @SuppressWarnings("deprecation") // "new ClassOrInterfaceType()" does not handle generics
+      @SuppressWarnings({
+        "deprecation", // "new ClassOrInterfaceType()" does not handle generics
+        "PMD.UseDiamondOperator" // cannot infer for an empty list
+      })
       VariableDeclarator variableDecl =
           new VariableDeclarator(
               testClassType,

@@ -29,7 +29,10 @@ public final class ToStringReturnsNormally extends ObjectContract {
     assert objects != null && objects.length == 1;
     Object o = objects[0];
     assert o != null;
-    @SuppressWarnings("UnusedVariable") // Execute toString() but ignore its value.
+    @SuppressWarnings({
+      "UnusedVariable",
+      "PMD.UnusedLocalVariable"
+    }) // Execute toString() but ignore its value.
     String ignore = o.toString();
     return true;
   }
@@ -59,10 +62,6 @@ public final class ToStringReturnsNormally extends ObjectContract {
 
   @Override
   public String toCodeString() {
-    StringBuilder b = new StringBuilder(128);
-    b.append("org.junit.Assert.assertTrue(\"Contract failed: ");
-    b.append(toCommentString());
-    b.append("\", x0.toString());");
-    return b.toString();
+    return "x0.toString();";
   }
 }

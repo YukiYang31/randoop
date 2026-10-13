@@ -9,13 +9,18 @@ public final class CompareToReturnsNormally extends ObjectContract {
   /** The singleton instance of this class. */
   private static final CompareToReturnsNormally instance = new CompareToReturnsNormally();
 
+  /** Private constructor to enforce singleton. */
   private CompareToReturnsNormally() {}
 
   public static CompareToReturnsNormally getInstance() {
     return instance;
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
+  @SuppressWarnings({
+    "unchecked",
+    "rawtypes",
+    "PMD.UselessPureMethodCall" // called to see if it throws
+  })
   @Override
   public boolean evaluate(Object... objects) {
     assert objects != null && objects.length == 1;

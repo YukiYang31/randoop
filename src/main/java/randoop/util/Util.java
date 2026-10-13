@@ -14,6 +14,7 @@ import randoop.Globals;
 /** Helpers for assertions, and stuff... */
 public final class Util {
 
+  /** Do not instantiate. */
   private Util() {
     throw new IllegalStateException("no instance");
   }
@@ -67,9 +68,9 @@ public final class Util {
   public static String convertToHexString(String unicodeString) {
     char[] chars = unicodeString.toCharArray();
     StringBuilder output = new StringBuilder();
-    for (int i = 0; i < chars.length; i++) {
+    for (char c : chars) {
       output.append("\\u");
-      String hex = Integer.toHexString(chars[i]);
+      String hex = Integer.toHexString(c);
       if (hex.length() < 4) {
         output.append('0');
       }
@@ -132,10 +133,10 @@ public final class Util {
 
     boolean firstLine = true;
     while (true) {
-      // Determine line's length (exclusive of intent if any)
+      // Determine line's length (exclusive of indent if any)
       int lineLength = firstLine ? colWidth : colWidth - indentWidth;
 
-      if (lineLength > string.length()) {
+      if (lineLength >= string.length()) {
         if (!firstLine) {
           b.append(indentString);
         }

@@ -22,7 +22,7 @@ public class MultiMap<K extends @Signed Object, V extends @Signed Object>
   /** The backing map. */
   private final @Modifiable Map<K, @Modifiable Set<V>> map;
 
-  /** Creates a new, empyt MultiMap. */
+  /** Creates a new, empty MultiMap. */
   public MultiMap() {
     map = new LinkedHashMap<>();
   }

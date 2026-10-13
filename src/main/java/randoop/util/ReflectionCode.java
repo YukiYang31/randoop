@@ -75,7 +75,7 @@ public abstract class ReflectionCode {
    * @throws ReflectionCodeException if execution results in conflicting error and success states;
    *     this results from a bug in Randoop
    */
-  public final void runReflectionCode() throws ReflectionCodeException {
+  public final void runReflectionCode() {
     this.setHasStarted();
     runReflectionCodeRaw();
     this.setHasRun();
@@ -88,8 +88,15 @@ public abstract class ReflectionCode {
    * @throws ReflectionCodeException if execution results in conflicting error and success states;
    *     this results from a bug in Randoop
    */
-  protected abstract void runReflectionCodeRaw() throws ReflectionCodeException;
+  protected abstract void runReflectionCodeRaw();
 
+  /**
+   * Returns the value returned by the execution. The result is null if the execution returned null
+   * or if the execution threw an exception; call {@link #getExceptionThrown} to distinguish these
+   * two cases.
+   *
+   * @return the value returned by the execution, or null if it returned null or threw an exception
+   */
   public @Nullable Object getReturnValue() {
     if (!hasRun()) {
       throw new IllegalStateException("run first, then ask");
