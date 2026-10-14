@@ -117,33 +117,12 @@ allprojects {
   apply(plugin = "org.checkerframework")
   configure<CheckerFrameworkExtension> {
     version = rootProject.libs.versions.checker.get()
-    if (project.hasProperty("cfNullness")) {
-      checkers =
-        listOf(
-          "org.checkerframework.checker.nullness.NullnessChecker",
-          // These are included to avoid this failure:
-          //   The following options were not recognized by any processor: "[permitStaticOwning]"
-          "org.checkerframework.checker.regex.RegexChecker",
-          "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
-          "org.checkerframework.checker.signedness.SignednessChecker",
-          "org.checkerframework.checker.signature.SignatureChecker",
-        )
-    } else {
-      checkers =
-        listOf(
-          // "org.checkerframework.checker.nullness.NullnessChecker",
-          "org.checkerframework.checker.regex.RegexChecker",
-          "org.checkerframework.checker.resourceleak.ResourceLeakChecker",
-          "org.checkerframework.checker.signedness.SignednessChecker",
-          "org.checkerframework.checker.signature.SignatureChecker",
-        )
-    }
+    checkers = listOf("org.checkerframework.checker.modifiability.ModifiabilityChecker")
     extraJavacArgs =
       listOf(
         // Uncomment -proc:none to disable all annotation processing and speed up the build.
         // "-proc:none",
 
-        "-Werror",
         "-Awarns",
         "-Xmaxwarns",
         "10000",
@@ -151,7 +130,6 @@ allprojects {
         "-ArequirePrefixInWarningSuppressions",
         "-AwarnUnneededSuppressions",
         "-AwarnRedundantAnnotations",
-        "-ApermitStaticOwning",
         // -processing: suppresses "No processor claimed any of these annotations ..."
         // -options: suppresses "target value 8 is obsolete and will be removed in a future release"
         "-Xlint:-processing,-options",
@@ -1230,5 +1208,13 @@ configure<PublishingExtension> {
       artifact(tasks["javadocJar"])
       artifact(tasks["sourcesJar"])
     }
+  }
+}
+
+// Don't treat warnings as errors, so that the Modifiability Checker reports every warning
+// (with -Werror, javac stops checking the remaining classes after the first class with warnings).
+allprojects {
+  tasks.withType<JavaCompile>().configureEach {
+    doFirst { options.compilerArgs.removeAll(listOf("-Werror")) }
   }
 }
