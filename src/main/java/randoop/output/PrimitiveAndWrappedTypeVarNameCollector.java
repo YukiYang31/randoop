@@ -7,12 +7,14 @@ import com.github.javaparser.ast.type.PrimitiveType;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Growable;
 
 /**
  * Visit every variable declaration. Adds to a set of strings for all the names of variables that
  * are either primitive or wrapped types.
  */
-public class PrimitiveAndWrappedTypeVarNameCollector extends VoidVisitorAdapter<Set<String>> {
+public class PrimitiveAndWrappedTypeVarNameCollector
+    extends VoidVisitorAdapter<@Growable Set<String>> {
 
   /** Creates a PrimitiveAndWrappedTypeVarNameCollector. */
   public PrimitiveAndWrappedTypeVarNameCollector() {}
@@ -25,7 +27,7 @@ public class PrimitiveAndWrappedTypeVarNameCollector extends VoidVisitorAdapter<
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void visit(VariableDeclarationExpr n, Set<String> variableNames) {
+  public void visit(VariableDeclarationExpr n, @Growable Set<String> variableNames) {
     for (VariableDeclarator vd : n.getVariables()) {
       Type t = vd.getType();
       if (t instanceof PrimitiveType

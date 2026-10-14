@@ -7,9 +7,10 @@ import com.github.javaparser.ast.type.WildcardType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import java.util.Optional;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Growable;
 
 /** Visitor for Class types in JavaParser AST. */
-public class ClassTypeVisitor extends VoidVisitorAdapter<Set<ClassOrInterfaceType>> {
+public class ClassTypeVisitor extends VoidVisitorAdapter<@Growable Set<ClassOrInterfaceType>> {
 
   /** Creates a ClassTypeVisitor. */
   public ClassTypeVisitor() {}
@@ -27,7 +28,7 @@ public class ClassTypeVisitor extends VoidVisitorAdapter<Set<ClassOrInterfaceTyp
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void visit(ClassOrInterfaceType n, Set<ClassOrInterfaceType> params) {
+  public void visit(ClassOrInterfaceType n, @Growable Set<ClassOrInterfaceType> params) {
 
     // If the class type is a generic type, visit each type argument.
 
