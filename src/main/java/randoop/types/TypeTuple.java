@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.plumelib.util.CollectionsPlume;
 import org.plumelib.util.StringsPlume;
@@ -214,7 +215,7 @@ public class TypeTuple implements Iterable<Type>, Comparable<TypeTuple> {
     }
 
     @Override
-    public void remove() {
+    public void remove(@Shrinkable TypeIterator this) {
       throw new UnsupportedOperationException();
     }
   }

@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.plumelib.util.StringsPlume;
 import randoop.Globals;
 import randoop.main.GenTests;
@@ -68,7 +69,7 @@ public final class JUnitCreator {
    * generate lists of method names for a class. Each test method is named TEST_METHOD_NAME_PREFIX+i
    * for some integer i.
    */
-  private Map<String, Integer> classMethodCounts;
+  private @Modifiable Map<String, Integer> classMethodCounts;
 
   /** The Java text for BeforeAll method of generated test class. */
   private BlockStmt beforeAllBody = null;

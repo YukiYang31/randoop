@@ -1,6 +1,7 @@
 package randoop.types;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -166,7 +167,7 @@ public class GenericClassType extends ParameterizedType {
    */
   @Override
   public List<TypeVariable> getTypeParameters() {
-    List<TypeVariable> params = super.getTypeParameters();
+    List<TypeVariable> params = new ArrayList<>(super.getTypeParameters());
     params.addAll(parameters);
     return params;
   }

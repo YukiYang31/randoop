@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.mustcall.qual.MustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.signature.qual.ClassGetName;
@@ -267,7 +268,7 @@ import randoop.util.Util;
   })
   private static void readSpecificationFile(
       Path specificationFile,
-      Map<AccessibleObject, OperationSpecification> specificationMap,
+      @Modifiable Map<AccessibleObject, OperationSpecification> specificationMap,
       MultiMap<OperationSignature, Method> signatureToMethods)
       throws RandoopSpecificationError {
     if (specificationFile.toString().toLowerCase(Locale.getDefault()).endsWith(".zip")) {
@@ -327,7 +328,7 @@ import randoop.util.Util;
   @SuppressWarnings("PMD.UseDiamondOperator") // Java can't infer SimpleFileVisitor<Path>.
   private static void readSpecificationZipFile(
       Path specificationZipFile,
-      final Map<AccessibleObject, OperationSpecification> specificationMap,
+      final @Modifiable Map<AccessibleObject, OperationSpecification> specificationMap,
       final MultiMap<OperationSignature, Method> signatureToMethods)
       throws RandoopSpecificationError {
     Map<String, ?> myEmptyMap = Collections.emptyMap();
@@ -376,7 +377,8 @@ import randoop.util.Util;
   }
 
   /** Cache for {@link #getExecutableSpecification}. */
-  private Map<AccessibleObject, ExecutableSpecification> getExecutableSpecificationCache;
+  private @Modifiable Map<AccessibleObject, ExecutableSpecification>
+      getExecutableSpecificationCache;
 
   /**
    * Creates an {@link ExecutableSpecification} object for the given constructor or method, from its

@@ -36,6 +36,7 @@ import java.util.StringTokenizer;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.checker.signature.qual.ClassGetName;
@@ -1536,7 +1537,7 @@ public class GenTests extends GenInputsAbstract {
    * A cache used by {@link #getResourceDirectoryPath}, to prevent {@code
    * FileSystemAlreadyExistsException}.
    */
-  private Map<URI, FileSystem> fileSystemCache = new HashMap<>();
+  private @Modifiable Map<URI, FileSystem> fileSystemCache = new HashMap<>();
 
   /**
    * Returns the path for the resource directory in the jar file.

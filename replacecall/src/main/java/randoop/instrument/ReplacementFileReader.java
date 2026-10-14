@@ -23,6 +23,7 @@ import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ObjectType;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.regex.qual.Regex;
@@ -95,7 +96,7 @@ public final class ReplacementFileReader {
    * @throws ReplacementFileException if there is an error in the replacement file
    * @see #readReplacements(Reader, String)
    */
-  static Map<MethodSignature, MethodSignature> readReplacements(Path replacementFile)
+  static @Modifiable Map<MethodSignature, MethodSignature> readReplacements(Path replacementFile)
       throws IOException, ReplacementFileException {
     try (Reader replacementReader =
         Files.newBufferedReader(replacementFile, StandardCharsets.UTF_8)) {
@@ -116,8 +117,8 @@ public final class ReplacementFileReader {
    * @throws ReplacementFileException if there is an error in the replacement file
    */
   @SuppressWarnings("nullness:argument") // https://tinyurl.com/cfissue/4006
-  static Map<MethodSignature, MethodSignature> readReplacements(@Owning Reader in, String filename)
-      throws ReplacementFileException, IOException {
+  static @Modifiable Map<MethodSignature, MethodSignature> readReplacements(
+      @Owning Reader in, String filename) throws ReplacementFileException, IOException {
     HashMap<MethodSignature, MethodSignature> replacementMap = new HashMap<>();
 
     try (EntryReader reader =
@@ -180,7 +181,7 @@ public final class ReplacementFileReader {
    * @throws NoSuchMethodException if either method cannot be found
    */
   private static void addMethodReplacement(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       String originalSignature,
       String replacementSignature)
       throws ReplacementException,
@@ -221,7 +222,7 @@ public final class ReplacementFileReader {
    * @throws ReplacementException if a replacement already exists for {@code original}
    */
   private static void addReplacement(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       MethodSignature original,
       MethodSignature replacement)
       throws ReplacementException {
@@ -260,7 +261,7 @@ public final class ReplacementFileReader {
    * @throws ClassNotFoundException if no class corresponding to the replacement is found
    */
   private static void addReplacementsForClassOrPackage(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @DotSeparatedIdentifiers String original,
       @DotSeparatedIdentifiers String replacement)
       throws ReplacementException, IOException, ClassNotFoundException {
@@ -291,7 +292,7 @@ public final class ReplacementFileReader {
    *     original, or if the replacement class cannot be found
    */
   private static void addReplacementsForClass(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @DotSeparatedIdentifiers String originalPackage,
       @DotSeparatedIdentifiers String replacementPackage,
       @BinaryName String classname)
@@ -320,7 +321,7 @@ public final class ReplacementFileReader {
    *     original, or if the replacement class cannot be found
    */
   private static void addReplacementsForClass(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @BinaryName String originalClassname,
       @BinaryName String replacementClassname)
       throws ClassNotFoundException, ReplacementException {
@@ -389,7 +390,7 @@ public final class ReplacementFileReader {
    * @see #addReplacementsForClassOrPackage(HashMap, String, String)
    */
   private static void addReplacementsForPackage(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @DotSeparatedIdentifiers String originalPackage,
       @DotSeparatedIdentifiers String replacementPackage)
       throws ReplacementException, ClassNotFoundException {
@@ -459,7 +460,7 @@ public final class ReplacementFileReader {
    * @see #addReplacementsForPackage(Map, String, String)
    */
   private static void addReplacementsForPackage(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @DotSeparatedIdentifiers String originalPackage,
       @DotSeparatedIdentifiers String replacementPackage,
       Path replacementDirectory)
@@ -504,7 +505,7 @@ public final class ReplacementFileReader {
    * @see #addReplacementsForPackage(Map, String, String)
    */
   private static void addReplacementsFromAllClassesOfPackage(
-      Map<MethodSignature, MethodSignature> replacementMap,
+      @Modifiable Map<MethodSignature, MethodSignature> replacementMap,
       @DotSeparatedIdentifiers String originalPackage,
       @DotSeparatedIdentifiers String replacementPackage,
       JarFile jarFile)
@@ -525,7 +526,7 @@ public final class ReplacementFileReader {
     }
   }
 
-  private static Map<String, JavaClass> javaClasses = new ConcurrentHashMap<>();
+  private static @Modifiable Map<String, JavaClass> javaClasses = new ConcurrentHashMap<>();
 
   /**
    * Returns a JavaClass object for the given class name. Works by trying to find a class file and
